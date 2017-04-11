@@ -1,0 +1,38 @@
+front:
+  build: .
+  ports:
+    - "8082:80"
+    - "4430:443"
+    - "9001:9000"
+  links:
+    - mongo:mongo
+    - memcached:memcached
+    - redis:redis
+    - rabbitmq:rabbitmq
+  volumes:
+    - ./:/var/www/html
+    - ./etc/nginx/sites:/etc/nginx/sites-enabled
+    - ./var/logs:/var/log/supervisor
+
+mongo:
+  image: mongo
+  ports:
+    - "27017:27017"
+  volumes:
+    - ./var/data/mongo:/data/db
+
+memcached:
+  image: memcached
+  ports:
+    - "11211:11211"
+
+redis:
+  image: redis
+  ports:
+    - "6379:6379"
+
+rabbitmq:
+  image: rabbitmq:3.6.1-management
+  ports:
+    - "15672:15672"
+    - "5672:5672"
