@@ -5,6 +5,7 @@ front:
     - "4430:443"
     - "9001:9000"
   links:
+    - mysql:mysql
     - mongo:mongo
     - memcached:memcached
     - redis:redis
@@ -13,6 +14,15 @@ front:
     - ./:/var/www/html
     - ./etc/nginx/sites:/etc/nginx/sites-enabled
     - ./var/logs:/var/log/supervisor
+
+mysql:
+  image: mysql
+  ports:
+    - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD : F00B@rBUz
+  volumes:
+    -  ./var/data/mysql:/var/lib/mysql
 
 mongo:
   image: mongo
