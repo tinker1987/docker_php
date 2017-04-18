@@ -43,8 +43,9 @@ Out of the box You will have container with PHP7.1 (including memcached, mongodb
  in order to use XDebug properly ([source](https://forums.docker.com/t/ip-address-for-xdebug/10460/26)).
 
  Add `10.254.254.254` in _DBGp Proxy > Host setting_.
-     - IDE key: _PHPSTORM_
-     - Host: _10.254.254.254_
-     - Port: _9089_
+     
+   - IDE key: _PHPSTORM_
+   - Host: _10.254.254.254_
+   - Port: _9089_
  
  
