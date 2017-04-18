@@ -33,3 +33,18 @@ Out of the box You will have container with PHP7.1 (including memcached, mongodb
  Simply put your private key under `etc/ssh/`
  
  > Note that You will need to start `docker-compose build` after You will make any changes to configuration
+ 
+ ### 3. How to configure PhpStorm and xdebug?
+ 
+ If you're using Docker for Mac you need to alias your local IP to something else : 
+ 
+     sudo ifconfig lo0 alias 10.254.254.254
+     
+ in order to use XDebug properly ([source](https://forums.docker.com/t/ip-address-for-xdebug/10460/26)).
+
+ Add `10.254.254.254` in _DBGp Proxy > Host setting_.
+     - IDE key: _PHPSTORM_
+     - Host: _10.254.254.254_
+     - Port: _9089_
+ 
+ 
