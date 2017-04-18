@@ -23,15 +23,15 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
 RUN apt-get install -y zlib1g zlib1g-dev memcached libmemcached-dev
 RUN pecl channel-update pecl.php.net
 RUN pecl install redis \
-    && pecl install xdebug \
     && pecl install memcached \
     && pecl install geoip-1.1.1 \
     && pecl install mongodb \
     && pecl install amqp \
-    && docker-php-ext-enable redis memcached xdebug geoip mongodb amqp
+    && docker-php-ext-enable redis memcached geoip mongodb amqp
 
 RUN curl -sS https://getcomposer.org/installer | php && mv ./composer.phar /usr/local/bin/composer
 
+RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 # Remove default nginx configs.
 RUN rm -f /etc/nginx/conf.d/*
