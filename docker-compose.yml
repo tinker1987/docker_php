@@ -1,9 +1,10 @@
 front:
   build: .
+  expose:
+    - "9089"
   ports:
     - "8082:80"
     - "4430:443"
-    - "9001:9000"
   links:
     - mysql:mysql
     - mongo:mongo
