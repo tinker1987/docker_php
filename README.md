@@ -36,9 +36,9 @@ Out of the box You will have container with PHP7.1 (including memcached, mongodb
  
  ### 3. How to configure PhpStorm and xdebug?
  
- If you're using Docker for Mac you need to alias your local IP to something else : 
- 
-     sudo ifconfig lo0 alias 10.254.254.254
+ You need to alias your local IP to something else : 
+   - On Mac: `sudo ifconfig lo0 alias 10.254.254.254`
+   - On Linux: `sudo ifconfig lo:1 10.254.254.254 up`
      
  in order to use XDebug properly ([source](https://forums.docker.com/t/ip-address-for-xdebug/10460/26)).
 
