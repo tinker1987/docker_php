@@ -19,13 +19,14 @@ Out of the box You will have container with PHP7.1 (including memcached, mongodb
  
  - Install [`docker-ce`](https://docs.docker.com/engine/installation/#platform-support-matrix)
  - Install [`docker-compose`](https://docs.docker.com/compose/install/)
+ - Copy `.env.dist` to `.env` and change variables as you need
+ - Generate nginx ssl certificates via
+     
+    `bash scripts/gen_nginx_ssl.sh`
+
+ - Copy your ssh keys to `./etc/ssh` to make it possible to pull private repos from inside container
  - Run `docker-compose up`
-    + If You need to customize services' ports then You need to specify them in _docker-compose.override.yml_ 
-      or create new custom config file and specify it in `up` command (documentation [here](https://docs.docker.com/compose/extends/)):
-      
-    ```bash
-      docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
-    ```
+    
  _To get information about available containers and ports see `docker-compose.yml`_
  
  ### 2. How to use my ssh keys?

@@ -1,49 +1,55 @@
-front:
+app:
+  container_name: "${COMPOSE_PROJECT_NAME}"
   build: .
   expose:
-    - "9089"
+    - "${PHP_XDEBUG_REMOTE_PORT}"
   ports:
-    - "8082:80"
-    - "4430:443"
+    - "${HOST_HTTP_PORT}:80"
+    - "${HOST_HTTPS_PORT}:443"
   links:
-    - mysql:mysql
-    - mongo:mongo
-    - memcached:memcached
-    - redis:redis
-    - rabbitmq:rabbitmq
+    - mysql:${MYSQL_HOST}
+    - mongo:${MONGO_HOST}
+    - memcached:${MEMCACHED_HOST}
+    - redis:${REDIS_HOST}
+    - rabbitmq:${RABBITMQ_HOST}
   volumes:
     - ./:/var/www/html
+    - ./etc/ssh:/root/.ssh
     - ./etc/nginx/sites:/etc/nginx/sites-enabled
-    - ./var/logs:/var/log/supervisor
+    - ./etc/nginx/ssl:/etc/nginx/ssl
+    - ./var/logs/nginx:/var/log/nginx
+  env_file:
+    - ./.env
 
 mysql:
   image: mysql
+  user: "1000:50"
   ports:
-    - "3306:3306"
+    - "${HOST_MYSQL_PORT}:${DB_MYSQL_PORT}"
   environment:
-    MYSQL_ROOT_PASSWORD : F00B@rBUz
+    MYSQL_ROOT_PASSWORD : ${DB_MYSQL_PASSWORD}
   volumes:
     -  ./var/data/mysql:/var/lib/mysql
 
 mongo:
   image: mongo
   ports:
-    - "27017:27017"
+    - "${HOST_MONGO_PORT}:27017"
   volumes:
     - ./var/data/mongo:/data/db
 
 memcached:
   image: memcached
   ports:
-    - "11211:11211"
+    - "${HOST_MEMCACHED_PORT}:11211"
 
 redis:
   image: redis
   ports:
-    - "6379:6379"
+    - "HOST_REDIS_PORT:6379"
 
 rabbitmq:
   image: rabbitmq:3.6.1-management
   ports:
-    - "15672:15672"
-    - "5672:5672"
+    - "${HOST_RABBITMQ_ADMIN_PORT}:15672"
+    - "${HOST_RABBITMQ_PORT}:5672"
